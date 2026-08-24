@@ -1,0 +1,419 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>FarmacyAI | Health Information</title>
+
+<style>
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+}
+
+:root{
+    --primary:#17a673;
+    --dark:#087f5b;
+    --bg:#f3fff8;
+    --card:#ffffff;
+    --text:#12352a;
+    --muted:#648078;
+}
+
+body{
+    font-family:Arial, sans-serif;
+    background:var(--bg);
+    color:var(--text);
+    min-height:100vh;
+}
+
+.navbar{
+    position:sticky;
+    top:0;
+    z-index:10;
+
+    padding:15px 6%;
+
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+
+    background:rgba(255,255,255,.85);
+    backdrop-filter:blur(15px);
+
+    border-bottom:1px solid #dcefe6;
+}
+
+.logo{
+    text-decoration:none;
+    color:var(--text);
+    font-size:22px;
+    font-weight:900;
+}
+
+.logo span{
+    display:inline-flex;
+    width:40px;
+    height:40px;
+    align-items:center;
+    justify-content:center;
+
+    margin-right:8px;
+
+    border-radius:12px;
+
+    background:linear-gradient(
+        135deg,
+        var(--primary),
+        #53d68b
+    );
+
+    color:white;
+}
+
+.back{
+    text-decoration:none;
+    color:var(--primary);
+    font-weight:bold;
+}
+
+.hero{
+    padding:80px 6% 40px;
+    text-align:center;
+
+    animation:fadeUp .8s ease;
+}
+
+.hero-icon{
+    font-size:65px;
+
+    animation:float 3s infinite ease-in-out;
+}
+
+.hero h1{
+    margin-top:15px;
+    font-size:clamp(35px,6vw,65px);
+}
+
+.hero p{
+    max-width:700px;
+    margin:18px auto;
+
+    color:var(--muted);
+    line-height:1.7;
+}
+
+.container{
+    max-width:1000px;
+    margin:auto;
+
+    padding:20px 6% 80px;
+}
+
+.card{
+    background:var(--card);
+
+    padding:30px;
+
+    margin-bottom:20px;
+
+    border-radius:25px;
+
+    border:1px solid #dcefe6;
+
+    box-shadow:
+    0 15px 45px rgba(14,100,70,.10);
+
+    animation:fadeUp .8s ease;
+}
+
+.card h2{
+    margin-bottom:15px;
+    color:var(--primary);
+}
+
+.card p{
+    color:var(--muted);
+    line-height:1.8;
+}
+
+.tips{
+    display:grid;
+    grid-template-columns:repeat(2,1fr);
+    gap:15px;
+}
+
+.tip{
+    padding:20px;
+
+    border-radius:18px;
+
+    background:#effcf5;
+
+    border:1px solid #d8f1e4;
+
+    transition:.3s;
+}
+
+.tip:hover{
+    transform:translateY(-5px);
+}
+
+.tip strong{
+    display:block;
+    margin-bottom:8px;
+}
+
+.warning{
+    background:#fff8e8;
+    border:1px solid #ffe2a8;
+
+    color:#775500;
+}
+
+.warning h2{
+    color:#d99400;
+}
+
+.home-btn{
+    display:inline-block;
+
+    margin-top:20px;
+
+    padding:14px 22px;
+
+    border-radius:14px;
+
+    background:linear-gradient(
+        135deg,
+        var(--primary),
+        var(--dark)
+    );
+
+    color:white;
+
+    text-decoration:none;
+
+    font-weight:bold;
+
+    transition:.3s;
+}
+
+.home-btn:hover{
+    transform:translateY(-4px);
+}
+
+footer{
+    text-align:center;
+    padding:30px;
+
+    color:var(--muted);
+}
+
+@keyframes fadeUp{
+    from{
+        opacity:0;
+        transform:translateY(30px);
+    }
+
+    to{
+        opacity:1;
+        transform:translateY(0);
+    }
+}
+
+@keyframes float{
+    0%,100%{
+        transform:translateY(0);
+    }
+
+    50%{
+        transform:translateY(-12px);
+    }
+}
+
+@media(max-width:600px){
+
+    .tips{
+        grid-template-columns:1fr;
+    }
+
+    .hero{
+        padding-top:55px;
+    }
+
+    .card{
+        padding:22px;
+    }
+}
+</style>
+</head>
+
+<body>
+
+<nav class="navbar">
+
+    <a href="index.html" class="logo">
+        <span>🌿</span>
+        FarmacyAI
+    </a>
+
+    <a href="index.html#remedies" class="back">
+        ← Back
+    </a>
+
+</nav>
+
+<section class="hero">
+
+    <div class="hero-icon" id="topicIcon">
+        💧
+    </div>
+
+    <h1 id="topicTitle">
+        Stay Hydrated
+    </h1>
+
+    <p id="topicIntro">
+        Simple health information and basic self-care guidance.
+    </p>
+
+</section>
+
+<main class="container">
+
+    <div class="card">
+
+        <h2>🌿 What you can do</h2>
+
+        <div class="tips">
+
+            <div class="tip">
+                <strong>💧 Drink Water</strong>
+                Drink clean water regularly throughout the day.
+            </div>
+
+            <div class="tip">
+                <strong>🥤 Stay Hydrated</strong>
+                Increase fluids during hot weather or after sweating.
+            </div>
+
+            <div class="tip">
+                <strong>🍉 Eat Water-Rich Foods</strong>
+                Fruits and vegetables can also contribute to hydration.
+            </div>
+
+            <div class="tip">
+                <strong>🛌 Take Rest</strong>
+                Give your body enough time to recover when you are unwell.
+            </div>
+
+        </div>
+
+    </div>
+
+    <div class="card">
+
+        <h2>⚠️ When to get medical help</h2>
+
+        <p>
+            If you cannot keep fluids down, feel extremely weak,
+            become confused, faint, or have signs of serious
+            dehydration, seek medical attention promptly.
+        </p>
+
+    </div>
+
+    <div class="card warning">
+
+        <h2>🛡️ Important</h2>
+
+        <p>
+            FarmacyAI provides general health information only.
+            It does not replace a qualified doctor or medical
+            professional. For serious, persistent, or worsening
+            symptoms, contact a healthcare professional.
+        </p>
+
+    </div>
+
+    <div style="text-align:center">
+
+        <a href="index.html#remedies" class="home-btn">
+            ← Explore More Remedies
+        </a>
+
+    </div>
+
+</main>
+
+<footer>
+    © 2026 FarmacyAI • Simple health information for everyone
+</footer>
+
+<script>
+
+const params = new URLSearchParams(
+    window.location.search
+);
+
+const topic = params.get("topic");
+
+const data = {
+
+    hydration:{
+        icon:"💧",
+        title:"Stay Hydrated",
+        intro:"Learn simple ways to maintain healthy hydration."
+    },
+
+    rest:{
+        icon:"😴",
+        title:"Take Enough Rest",
+        intro:"Adequate sleep and rest support normal recovery and wellbeing."
+    },
+
+    food:{
+        icon:"🥗",
+        title:"Balanced Food",
+        intro:"A balanced diet helps provide your body with essential nutrients."
+    },
+
+    hygiene:{
+        icon:"🧼",
+        title:"Hand Hygiene",
+        intro:"Good hand hygiene helps reduce the spread of many infections."
+    },
+
+    relax:{
+        icon:"🧘",
+        title:"Relax & Breathe",
+        intro:"Simple relaxation and breathing practices can support wellbeing."
+    },
+
+    movement:{
+        icon:"🏃",
+        title:"Daily Movement",
+        intro:"Regular physical activity can support general health and fitness."
+    }
+
+};
+
+if(data[topic]){
+
+    document.getElementById("topicIcon").textContent =
+        data[topic].icon;
+
+    document.getElementById("topicTitle").textContent =
+        data[topic].title;
+
+    document.getElementById("topicIntro").textContent =
+        data[topic].intro;
+}
+
+</script>
+
+</body>
+</html>
