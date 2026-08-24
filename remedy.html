@@ -1,0 +1,543 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>FarmacyAI | Health Information</title>
+
+<style>
+
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
+}
+
+html{
+scroll-behavior:smooth;
+}
+
+body{
+font-family:Arial, sans-serif;
+background:#f2fff7;
+color:#12352a;
+min-height:100vh;
+}
+
+body.dark{
+background:#071712;
+color:#eafff3;
+}
+
+.navbar{
+height:70px;
+padding:0 7%;
+display:flex;
+align-items:center;
+justify-content:space-between;
+
+background:rgba(255,255,255,.8);
+backdrop-filter:blur(15px);
+
+border-bottom:1px solid #d8eee2;
+
+position:sticky;
+top:0;
+z-index:100;
+}
+
+body.dark .navbar{
+background:rgba(7,23,18,.9);
+border-color:#183c2d;
+}
+
+.logo{
+font-size:22px;
+font-weight:900;
+text-decoration:none;
+color:#12352a;
+}
+
+body.dark .logo{
+color:white;
+}
+
+.back{
+text-decoration:none;
+color:#17a673;
+font-weight:bold;
+}
+
+.hero{
+padding:70px 7% 40px;
+text-align:center;
+}
+
+.icon{
+font-size:65px;
+animation:float 3s infinite ease-in-out;
+}
+
+@keyframes float{
+
+0%,100%{
+transform:translateY(0);
+}
+
+50%{
+transform:translateY(-12px);
+}
+
+}
+
+.hero h1{
+font-size:clamp(35px,6vw,65px);
+margin-top:20px;
+}
+
+.gradient{
+background:linear-gradient(
+90deg,
+#17a673,
+#49d887,
+#0aa6a6
+);
+
+-webkit-background-clip:text;
+color:transparent;
+}
+
+.hero p{
+max-width:700px;
+margin:20px auto;
+color:#648078;
+line-height:1.7;
+}
+
+body.dark .hero p{
+color:#9bb9ad;
+}
+
+.container{
+max-width:950px;
+margin:auto;
+padding:20px 7% 80px;
+}
+
+.card{
+background:white;
+border-radius:28px;
+padding:35px;
+box-shadow:0 20px 60px rgba(20,120,80,.12);
+border:1px solid #dcefe5;
+margin-bottom:25px;
+animation:appear .7s ease;
+}
+
+body.dark .card{
+background:#10251e;
+border-color:#1d4132;
+}
+
+@keyframes appear{
+
+from{
+opacity:0;
+transform:translateY(30px);
+}
+
+to{
+opacity:1;
+transform:translateY(0);
+}
+
+}
+
+.card h2{
+font-size:28px;
+margin-bottom:15px;
+}
+
+.card h3{
+margin-top:25px;
+margin-bottom:10px;
+color:#17a673;
+}
+
+.card p{
+line-height:1.8;
+color:#607970;
+}
+
+body.dark .card p{
+color:#abc0b7;
+}
+
+.tips{
+display:grid;
+grid-template-columns:repeat(2,1fr);
+gap:15px;
+margin-top:20px;
+}
+
+.tip{
+padding:18px;
+border-radius:18px;
+background:#effbf4;
+border:1px solid #d9eee1;
+}
+
+body.dark .tip{
+background:#0b1d17;
+border-color:#1c3b2e;
+}
+
+.warning{
+padding:20px;
+border-radius:18px;
+background:#fff7df;
+border:1px solid #f2d68a;
+margin-top:25px;
+line-height:1.7;
+}
+
+body.dark .warning{
+background:#302814;
+border-color:#665524;
+}
+
+.button{
+display:inline-block;
+margin-top:25px;
+padding:14px 22px;
+background:#17a673;
+color:white;
+text-decoration:none;
+border-radius:14px;
+font-weight:bold;
+transition:.3s;
+}
+
+.button:hover{
+transform:translateY(-4px);
+box-shadow:0 12px 25px rgba(23,166,115,.25);
+}
+
+footer{
+text-align:center;
+padding:35px;
+color:#648078;
+border-top:1px solid #dcefe5;
+}
+
+@media(max-width:600px){
+
+.navbar{
+padding:0 5%;
+}
+
+.hero{
+padding:50px 5% 30px;
+}
+
+.container{
+padding:10px 5% 60px;
+}
+
+.card{
+padding:25px;
+}
+
+.tips{
+grid-template-columns:1fr;
+}
+
+}
+
+</style>
+
+</head>
+
+<body>
+
+<nav class="navbar">
+
+<a href="index.html" class="logo">
+🌿 FarmacyAI
+</a>
+
+<a href="index.html" class="back">
+← Back to Home
+</a>
+
+</nav>
+
+
+<section class="hero">
+
+<div class="icon" id="mainIcon">
+💧
+</div>
+
+<h1>
+<span class="gradient" id="title">
+Stay Hydrated
+</span>
+</h1>
+
+<p id="intro">
+Learn simple and useful health information
+about this topic.
+</p>
+
+</section>
+
+
+<div class="container">
+
+<div class="card">
+
+<h2>📖 About This Topic</h2>
+
+<p id="about">
+Information will appear here.
+</p>
+
+
+<h3>✅ Helpful Tips</h3>
+
+<div class="tips" id="tips">
+</div>
+
+
+<h3>🌿 Simple Self-Care</h3>
+
+<p id="care">
+Follow basic healthy habits and monitor
+how you feel.
+</p>
+
+
+<div class="warning">
+
+<strong>⚠️ Important:</strong>
+
+<br><br>
+
+This information is for general education only.
+It does not diagnose disease or replace a doctor,
+pharmacist or qualified healthcare professional.
+
+If symptoms are severe, sudden, persistent or
+getting worse, seek professional medical care.
+
+</div>
+
+<a href="index.html" class="button">
+← Back to FarmacyAI
+</a>
+
+</div>
+
+</div>
+
+
+<footer>
+
+🌿 <strong>FarmacyAI</strong>
+
+<br><br>
+
+Simple health information for everyone.
+
+</footer>
+
+
+<script>
+
+const data = {
+
+hydration:{
+
+title:"Stay Hydrated",
+
+icon:"💧",
+
+intro:"Learn why hydration is important and how to maintain healthy fluid intake.",
+
+about:"Water is important for many normal functions of the body. Drinking enough fluids can help maintain hydration, especially during hot weather or physical activity.",
+
+tips:[
+"Drink water regularly during the day.",
+"Drink more fluids during hot weather when appropriate.",
+"Keep clean drinking water easily available.",
+"Pay attention to thirst and other signs of dehydration."
+],
+
+care:"Choose safe drinking water and drink fluids regularly. During illness, follow advice from a healthcare professional."
+
+},
+
+rest:{
+
+title:"Take Enough Rest",
+
+icon:"😴",
+
+intro:"Good rest and sleep are important parts of overall wellbeing.",
+
+about:"Sleep and rest allow the body and mind to recover from daily activity. Poor sleep can affect concentration, mood and everyday performance.",
+
+tips:[
+"Maintain a regular sleep schedule.",
+"Keep your sleeping environment comfortable.",
+"Reduce unnecessary screen use before sleeping.",
+"Give your body enough time to rest."
+],
+
+care:"Try to maintain regular sleep and rest habits. Persistent severe tiredness should be discussed with a healthcare professional."
+
+},
+
+food:{
+
+title:"Balanced Food",
+
+icon:"🍲",
+
+intro:"Learn simple principles for maintaining a balanced diet.",
+
+about:"A varied diet can provide the body with different nutrients needed for normal health. Fruits, vegetables, grains and protein foods can all be part of a balanced eating pattern.",
+
+tips:[
+"Include vegetables and fruits in meals.",
+"Choose a variety of foods.",
+"Drink safe and clean water.",
+"Limit excessive highly processed foods."
+],
+
+care:"Choose food according to your age, activity and individual health needs. People with specific medical conditions should follow professional dietary advice."
+
+},
+
+hygiene:{
+
+title:"Hand Hygiene",
+
+icon:"🧼",
+
+intro:"Simple hand hygiene can help reduce the spread of infections.",
+
+about:"Washing hands properly with soap and clean running water is an important everyday hygiene practice.",
+
+tips:[
+"Wash hands before eating.",
+"Wash hands after using the toilet.",
+"Wash hands after coughing or sneezing.",
+"Use soap and clean running water when available."
+],
+
+care:"Make hand washing a regular part of your daily routine, especially before preparing or eating food."
+
+},
+
+relax:{
+
+title:"Relax & Breathe",
+
+icon:"🧘",
+
+intro:"Simple relaxation techniques may help with everyday stress.",
+
+about:"Taking quiet time and using slow, comfortable breathing can be a useful part of general wellbeing.",
+
+tips:[
+"Sit somewhere comfortable.",
+"Take slow comfortable breaths.",
+"Take short breaks during stressful activities.",
+"Maintain regular sleep and physical activity."
+],
+
+care:"Relaxation techniques are not a substitute for professional care when stress or emotional distress is severe or persistent."
+
+},
+
+movement:{
+
+title:"Daily Movement",
+
+icon:"🚶",
+
+intro:"Regular physical activity can support general health.",
+
+about:"Age-appropriate physical activity can support physical fitness, mobility and general wellbeing.",
+
+tips:[
+"Choose activities you enjoy.",
+"Start slowly if you are not active.",
+"Take regular movement breaks.",
+"Stay hydrated during appropriate activities."
+],
+
+care:"Choose activity appropriate for your age and ability. Stop and seek medical advice if exercise causes severe pain, dizziness or breathing difficulty."
+
+}
+
+};
+
+
+const params =
+new URLSearchParams(window.location.search);
+
+const topic =
+params.get("topic") || "hydration";
+
+
+const info =
+data[topic] || data.hydration;
+
+
+document.getElementById("mainIcon")
+.textContent=info.icon;
+
+
+document.getElementById("title")
+.textContent=info.title;
+
+
+document.getElementById("intro")
+.textContent=info.intro;
+
+
+document.getElementById("about")
+.textContent=info.about;
+
+
+document.getElementById("care")
+.textContent=info.care;
+
+
+const tips =
+document.getElementById("tips");
+
+
+info.tips.forEach(function(tip){
+
+const div =
+document.createElement("div");
+
+div.className="tip";
+
+div.textContent="✓ "+tip;
+
+tips.appendChild(div);
+
+});
+
+
+</script>
+
+</body>
+</html>
