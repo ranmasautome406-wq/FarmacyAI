@@ -1,92 +1,2105 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Farmacy AI - Management System</title>
-    <!-- Tailwind CSS CDN -->
-    <script src="https://cdn.tailwindcss.com"></script>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>FarmacyAI | Smart Health Assistant</title>
+
+<meta name="description"
+content="FarmacyAI - Simple AI-powered health information and local-language guidance for everyone.">
+
+<style>
+/* =========================================================
+   FARMACY AI - MODERN SINGLE PAGE WEBSITE
+========================================================= */
+
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+}
+
+html{
+    scroll-behavior:smooth;
+}
+
+:root{
+    --primary:#17a673;
+    --primary-dark:#087f5b;
+    --secondary:#53d68b;
+    --accent:#8df7b5;
+
+    --bg:#f3fff8;
+    --card:rgba(255,255,255,.78);
+    --text:#12352a;
+    --muted:#648078;
+
+    --border:rgba(23,166,115,.15);
+    --shadow:0 20px 50px rgba(14,100,70,.12);
+
+    --danger:#ef5350;
+    --warning:#ffb020;
+
+    --nav:rgba(255,255,255,.75);
+}
+
+body.dark{
+    --bg:#071712;
+    --card:rgba(15,35,29,.82);
+    --text:#eafff3;
+    --muted:#9bb9ad;
+    --border:rgba(141,247,181,.12);
+    --shadow:0 20px 60px rgba(0,0,0,.3);
+    --nav:rgba(7,23,18,.78);
+}
+
+body{
+    font-family:
+    Inter,
+    system-ui,
+    -apple-system,
+    BlinkMacSystemFont,
+    "Segoe UI",
+    sans-serif;
+
+    background:var(--bg);
+    color:var(--text);
+
+    overflow-x:hidden;
+
+    transition:
+    background .4s ease,
+    color .4s ease;
+}
+
+button,
+input,
+select{
+    font:inherit;
+}
+
+/* =========================================================
+   ANIMATED BACKGROUND
+========================================================= */
+
+.background{
+    position:fixed;
+    inset:0;
+    z-index:-2;
+    overflow:hidden;
+    pointer-events:none;
+}
+
+.blob{
+    position:absolute;
+    width:400px;
+    height:400px;
+    border-radius:50%;
+    filter:blur(80px);
+    opacity:.18;
+    animation:floatBlob 12s infinite alternate ease-in-out;
+}
+
+.blob:nth-child(1){
+    background:#22c77a;
+    top:-150px;
+    left:-100px;
+}
+
+.blob:nth-child(2){
+    background:#65e6ff;
+    right:-120px;
+    top:20%;
+    animation-delay:2s;
+}
+
+.blob:nth-child(3){
+    background:#9dff91;
+    bottom:-150px;
+    left:30%;
+    animation-delay:4s;
+}
+
+@keyframes floatBlob{
+    from{
+        transform:translate(0,0) scale(1);
+    }
+
+    to{
+        transform:translate(80px,60px) scale(1.2);
+    }
+}
+
+/* =========================================================
+   NAVBAR
+========================================================= */
+
+.navbar{
+    position:fixed;
+    top:0;
+    left:0;
+    width:100%;
+    z-index:1000;
+
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+
+    padding:16px 7%;
+
+    background:var(--nav);
+    backdrop-filter:blur(18px);
+    -webkit-backdrop-filter:blur(18px);
+
+    border-bottom:1px solid var(--border);
+}
+
+.logo{
+    display:flex;
+    align-items:center;
+    gap:10px;
+
+    font-size:23px;
+    font-weight:900;
+    text-decoration:none;
+    color:var(--text);
+}
+
+.logo-icon{
+    width:43px;
+    height:43px;
+    border-radius:14px;
+
+    display:flex;
+    align-items:center;
+    justify-content:center;
+
+    background:linear-gradient(
+        135deg,
+        var(--primary),
+        var(--secondary)
+    );
+
+    color:white;
+
+    box-shadow:
+    0 10px 25px rgba(23,166,115,.25);
+
+    animation:pulseLogo 3s infinite;
+}
+
+@keyframes pulseLogo{
+    0%,100%{
+        transform:scale(1);
+    }
+    50%{
+        transform:scale(1.07);
+    }
+}
+
+.nav-links{
+    display:flex;
+    gap:28px;
+    align-items:center;
+}
+
+.nav-links a{
+    color:var(--text);
+    text-decoration:none;
+    font-weight:600;
+    font-size:14px;
+    transition:.3s;
+}
+
+.nav-links a:hover{
+    color:var(--primary);
+}
+
+.nav-actions{
+    display:flex;
+    gap:8px;
+}
+
+.icon-btn{
+    border:none;
+    width:42px;
+    height:42px;
+    border-radius:13px;
+
+    background:var(--card);
+    color:var(--text);
+
+    cursor:pointer;
+
+    border:1px solid var(--border);
+
+    transition:.3s;
+}
+
+.icon-btn:hover{
+    transform:translateY(-3px);
+    box-shadow:var(--shadow);
+}
+
+.lang-select{
+    border:1px solid var(--border);
+    background:var(--card);
+    color:var(--text);
+
+    padding:10px 12px;
+    border-radius:12px;
+
+    cursor:pointer;
+}
+
+/* =========================================================
+   HERO
+========================================================= */
+
+.hero{
+    min-height:100vh;
+
+    padding:
+    150px 7% 80px;
+
+    display:grid;
+    grid-template-columns:
+    1.1fr .9fr;
+
+    gap:60px;
+
+    align-items:center;
+}
+
+.hero-content{
+    animation:heroIn 1s ease forwards;
+}
+
+@keyframes heroIn{
+    from{
+        opacity:0;
+        transform:translateY(40px);
+    }
+
+    to{
+        opacity:1;
+        transform:translateY(0);
+    }
+}
+
+.badge{
+    display:inline-flex;
+    align-items:center;
+    gap:8px;
+
+    padding:9px 14px;
+
+    border-radius:100px;
+
+    background:rgba(23,166,115,.1);
+    color:var(--primary);
+
+    font-size:13px;
+    font-weight:800;
+
+    border:1px solid var(--border);
+}
+
+.badge span{
+    width:8px;
+    height:8px;
+    border-radius:50%;
+    background:#2ed573;
+
+    box-shadow:
+    0 0 0 5px rgba(46,213,115,.12);
+
+    animation:blink 1.5s infinite;
+}
+
+@keyframes blink{
+    50%{
+        opacity:.3;
+    }
+}
+
+.hero h1{
+    margin-top:24px;
+
+    font-size:
+    clamp(45px,7vw,86px);
+
+    line-height:.98;
+
+    letter-spacing:-4px;
+}
+
+.gradient-text{
+    background:
+    linear-gradient(
+        90deg,
+        var(--primary),
+        #46d987,
+        #10a6a6
+    );
+
+    -webkit-background-clip:text;
+    color:transparent;
+
+    background-size:200%;
+
+    animation:gradientMove 5s infinite alternate;
+}
+
+@keyframes gradientMove{
+    from{
+        background-position:0%;
+    }
+
+    to{
+        background-position:100%;
+    }
+}
+
+.hero p{
+    max-width:650px;
+
+    margin-top:25px;
+
+    font-size:18px;
+    line-height:1.8;
+
+    color:var(--muted);
+}
+
+.hero-buttons{
+    display:flex;
+    flex-wrap:wrap;
+    gap:14px;
+
+    margin-top:32px;
+}
+
+.btn{
+    border:none;
+
+    padding:14px 22px;
+
+    border-radius:15px;
+
+    cursor:pointer;
+
+    font-weight:800;
+
+    display:inline-flex;
+    align-items:center;
+    justify-content:center;
+    gap:8px;
+
+    transition:.3s;
+}
+
+.btn-primary{
+    color:white;
+
+    background:
+    linear-gradient(
+        135deg,
+        var(--primary),
+        var(--primary-dark)
+    );
+
+    box-shadow:
+    0 15px 30px rgba(23,166,115,.25);
+}
+
+.btn-secondary{
+    background:var(--card);
+    color:var(--text);
+
+    border:1px solid var(--border);
+}
+
+.btn:hover{
+    transform:translateY(-4px);
+}
+
+/* =========================================================
+   AI CARD
+========================================================= */
+
+.ai-visual{
+    position:relative;
+
+    min-height:530px;
+
+    display:flex;
+    align-items:center;
+    justify-content:center;
+}
+
+.ai-card{
+    width:min(430px,100%);
+
+    padding:30px;
+
+    border-radius:32px;
+
+    background:
+    linear-gradient(
+        145deg,
+        rgba(255,255,255,.78),
+        rgba(222,255,237,.52)
+    );
+
+    border:1px solid var(--border);
+
+    backdrop-filter:blur(25px);
+
+    box-shadow:
+    0 35px 80px rgba(13,112,76,.17);
+
+    animation:cardFloat 5s infinite ease-in-out;
+}
+
+body.dark .ai-card{
+    background:
+    linear-gradient(
+        145deg,
+        rgba(24,55,45,.9),
+        rgba(11,35,27,.8)
+    );
+}
+
+@keyframes cardFloat{
+    0%,100%{
+        transform:translateY(0) rotate(0deg);
+    }
+
+    50%{
+        transform:translateY(-18px) rotate(1deg);
+    }
+}
+
+.ai-top{
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+
+    margin-bottom:25px;
+}
+
+.ai-avatar{
+    width:60px;
+    height:60px;
+
+    border-radius:20px;
+
+    display:flex;
+    align-items:center;
+    justify-content:center;
+
+    font-size:28px;
+
+    background:
+    linear-gradient(
+        135deg,
+        #0fbf72,
+        #69ed9c
+    );
+
+    color:white;
+}
+
+.online{
+    color:#22b573;
+    font-size:13px;
+    font-weight:800;
+}
+
+.chat-bubble{
+    padding:15px 17px;
+
+    border-radius:18px;
+
+    margin:12px 0;
+
+    line-height:1.5;
+
+    font-size:14px;
+}
+
+.ai-message{
+    background:rgba(23,166,115,.1);
+    border-bottom-left-radius:5px;
+}
+
+.user-message{
+    background:var(--primary);
+    color:white;
+
+    margin-left:50px;
+
+    border-bottom-right-radius:5px;
+}
+
+.ai-input{
+    display:flex;
+    gap:8px;
+
+    margin-top:22px;
+}
+
+.ai-input input{
+    width:100%;
+
+    padding:13px;
+
+    border-radius:13px;
+
+    border:1px solid var(--border);
+
+    outline:none;
+
+    background:var(--card);
+    color:var(--text);
+}
+
+.send-btn{
+    border:none;
+
+    min-width:48px;
+
+    border-radius:13px;
+
+    background:var(--primary);
+    color:white;
+
+    cursor:pointer;
+}
+
+/* =========================================================
+   SECTION
+========================================================= */
+
+section{
+    padding:100px 7%;
+}
+
+.section-head{
+    text-align:center;
+    max-width:720px;
+    margin:auto auto 50px;
+}
+
+.section-head .mini{
+    color:var(--primary);
+    font-size:13px;
+    font-weight:900;
+    letter-spacing:2px;
+    text-transform:uppercase;
+}
+
+.section-head h2{
+    margin-top:12px;
+
+    font-size:
+    clamp(32px,5vw,52px);
+
+    letter-spacing:-2px;
+}
+
+.section-head p{
+    margin-top:15px;
+    color:var(--muted);
+    line-height:1.7;
+}
+
+/* =========================================================
+   SEARCH
+========================================================= */
+
+.search-box{
+    max-width:850px;
+    margin:auto;
+
+    padding:9px;
+
+    display:flex;
+
+    border-radius:20px;
+
+    background:var(--card);
+
+    border:1px solid var(--border);
+
+    box-shadow:var(--shadow);
+}
+
+.search-box input{
+    flex:1;
+
+    padding:17px;
+
+    border:none;
+    outline:none;
+
+    background:transparent;
+
+    color:var(--text);
+}
+
+.search-box button{
+    padding:0 22px;
+
+    border:none;
+    border-radius:14px;
+
+    background:var(--primary);
+    color:white;
+
+    cursor:pointer;
+}
+
+/* =========================================================
+   CATEGORIES
+========================================================= */
+
+.categories{
+    display:grid;
+
+    grid-template-columns:
+    repeat(4,1fr);
+
+    gap:18px;
+}
+
+.category{
+    padding:25px;
+
+    border-radius:23px;
+
+    background:var(--card);
+
+    border:1px solid var(--border);
+
+    cursor:pointer;
+
+    transition:.4s;
+
+    position:relative;
+    overflow:hidden;
+}
+
+.category::after{
+    content:"";
+
+    position:absolute;
+
+    width:100px;
+    height:100px;
+
+    border-radius:50%;
+
+    right:-40px;
+    bottom:-50px;
+
+    background:rgba(23,166,115,.08);
+}
+
+.category:hover{
+    transform:
+    translateY(-8px)
+    scale(1.02);
+
+    box-shadow:var(--shadow);
+}
+
+.category-icon{
+    width:55px;
+    height:55px;
+
+    display:flex;
+    align-items:center;
+    justify-content:center;
+
+    border-radius:17px;
+
+    font-size:25px;
+
+    background:rgba(23,166,115,.1);
+
+    margin-bottom:18px;
+}
+
+.category h3{
+    margin-bottom:8px;
+}
+
+.category p{
+    color:var(--muted);
+    font-size:14px;
+}
+
+/* =========================================================
+   REMEDIES
+========================================================= */
+
+.remedy-grid{
+    display:grid;
+
+    grid-template-columns:
+    repeat(3,1fr);
+
+    gap:22px;
+}
+
+.remedy{
+    padding:28px;
+
+    background:var(--card);
+
+    border:1px solid var(--border);
+
+    border-radius:25px;
+
+    transition:.4s;
+
+    position:relative;
+}
+
+.remedy:hover{
+    transform:translateY(-7px);
+    box-shadow:var(--shadow);
+}
+
+.remedy-top{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+}
+
+.remedy-icon{
+    font-size:32px;
+}
+
+.safe{
+    padding:6px 10px;
+
+    border-radius:100px;
+
+    background:rgba(46,213,115,.12);
+
+    color:#159957;
+
+    font-size:11px;
+    font-weight:900;
+}
+
+.remedy h3{
+    margin-top:20px;
+    font-size:21px;
+}
+
+.remedy p{
+    margin-top:10px;
+
+    color:var(--muted);
+
+    line-height:1.7;
+
+    font-size:14px;
+}
+
+.remedy button{
+    margin-top:18px;
+
+    border:none;
+
+    background:none;
+
+    color:var(--primary);
+
+    font-weight:800;
+
+    cursor:pointer;
+}
+
+/* =========================================================
+   LANGUAGE SECTION
+========================================================= */
+
+.language-box{
+    display:grid;
+
+    grid-template-columns:
+    1fr 1fr;
+
+    gap:30px;
+
+    align-items:center;
+
+    padding:45px;
+
+    border-radius:32px;
+
+    background:
+    linear-gradient(
+        135deg,
+        rgba(23,166,115,.12),
+        rgba(90,220,150,.05)
+    );
+
+    border:1px solid var(--border);
+}
+
+.language-box h2{
+    font-size:38px;
+}
+
+.language-box p{
+    color:var(--muted);
+    margin-top:14px;
+    line-height:1.7;
+}
+
+.languages{
+    display:flex;
+    flex-wrap:wrap;
+    gap:10px;
+}
+
+.language{
+    padding:12px 16px;
+
+    border-radius:13px;
+
+    background:var(--card);
+
+    border:1px solid var(--border);
+
+    cursor:pointer;
+
+    transition:.3s;
+}
+
+.language:hover{
+    transform:translateY(-4px);
+    border-color:var(--primary);
+}
+
+/* =========================================================
+   EMERGENCY
+========================================================= */
+
+.emergency{
+    background:
+    linear-gradient(
+        135deg,
+        rgba(239,83,80,.09),
+        rgba(255,176,32,.07)
+    );
+
+    border:1px solid rgba(239,83,80,.15);
+
+    border-radius:30px;
+
+    padding:40px;
+
+    display:flex;
+
+    justify-content:space-between;
+    align-items:center;
+
+    gap:30px;
+}
+
+.emergency h2{
+    color:var(--danger);
+}
+
+.emergency p{
+    color:var(--muted);
+    margin-top:8px;
+}
+
+.emergency-number{
+    min-width:150px;
+
+    padding:16px 25px;
+
+    text-align:center;
+
+    border-radius:17px;
+
+    background:var(--danger);
+
+    color:white;
+
+    text-decoration:none;
+
+    font-weight:900;
+
+    box-shadow:
+    0 15px 30px rgba(239,83,80,.2);
+}
+
+/* =========================================================
+   AI ASSISTANT
+========================================================= */
+
+.assistant{
+    max-width:900px;
+    margin:auto;
+
+    background:var(--card);
+
+    border:1px solid var(--border);
+
+    border-radius:30px;
+
+    padding:30px;
+
+    box-shadow:var(--shadow);
+}
+
+.assistant-header{
+    display:flex;
+    align-items:center;
+    gap:15px;
+
+    margin-bottom:25px;
+}
+
+.assistant-avatar{
+    width:55px;
+    height:55px;
+
+    border-radius:18px;
+
+    display:flex;
+    align-items:center;
+    justify-content:center;
+
+    background:var(--primary);
+
+    color:white;
+
+    font-size:25px;
+}
+
+.question-grid{
+    display:grid;
+
+    grid-template-columns:
+    repeat(2,1fr);
+
+    gap:10px;
+}
+
+.question{
+    padding:14px;
+
+    border:1px solid var(--border);
+
+    border-radius:14px;
+
+    background:transparent;
+
+    color:var(--text);
+
+    text-align:left;
+
+    cursor:pointer;
+
+    transition:.3s;
+}
+
+.question:hover{
+    background:rgba(23,166,115,.08);
+    transform:translateX(4px);
+}
+
+.response{
+    margin-top:20px;
+
+    padding:20px;
+
+    border-radius:18px;
+
+    background:rgba(23,166,115,.08);
+
+    display:none;
+
+    line-height:1.7;
+}
+
+/* =========================================================
+   FOOTER
+========================================================= */
+
+footer{
+    padding:60px 7% 30px;
+
+    border-top:1px solid var(--border);
+
+    text-align:center;
+}
+
+.footer-logo{
+    font-size:25px;
+    font-weight:900;
+}
+
+footer p{
+    margin-top:12px;
+    color:var(--muted);
+}
+
+.disclaimer{
+    max-width:900px;
+
+    margin:25px auto 0;
+
+    padding:15px;
+
+    border-radius:14px;
+
+    background:rgba(255,176,32,.08);
+
+    color:var(--muted);
+
+    font-size:12px;
+
+    line-height:1.6;
+}
+
+/* =========================================================
+   SCROLL ANIMATION
+========================================================= */
+
+.reveal{
+    opacity:0;
+    transform:translateY(40px);
+    transition:
+    opacity .8s ease,
+    transform .8s ease;
+}
+
+.reveal.active{
+    opacity:1;
+    transform:translateY(0);
+}
+
+/* =========================================================
+   TOAST
+========================================================= */
+
+.toast{
+    position:fixed;
+
+    bottom:25px;
+    right:25px;
+
+    padding:15px 20px;
+
+    border-radius:15px;
+
+    background:#12352a;
+    color:white;
+
+    opacity:0;
+
+    transform:translateY(30px);
+
+    pointer-events:none;
+
+    transition:.4s;
+
+    z-index:2000;
+}
+
+.toast.show{
+    opacity:1;
+    transform:translateY(0);
+}
+
+/* =========================================================
+   MOBILE
+========================================================= */
+
+@media(max-width:900px){
+
+    .nav-links{
+        display:none;
+    }
+
+    .hero{
+        grid-template-columns:1fr;
+
+        padding-top:130px;
+    }
+
+    .ai-visual{
+        min-height:450px;
+    }
+
+    .categories{
+        grid-template-columns:
+        repeat(2,1fr);
+    }
+
+    .remedy-grid{
+        grid-template-columns:
+        repeat(2,1fr);
+    }
+
+    .language-box{
+        grid-template-columns:1fr;
+    }
+}
+
+@media(max-width:600px){
+
+    .navbar{
+        padding:12px 5%;
+    }
+
+    .lang-select{
+        display:none;
+    }
+
+    .hero{
+        padding-left:5%;
+        padding-right:5%;
+    }
+
+    section{
+        padding:75px 5%;
+    }
+
+    .hero h1{
+        letter-spacing:-2px;
+    }
+
+    .hero p{
+        font-size:16px;
+    }
+
+    .categories,
+    .remedy-grid,
+    .question-grid{
+        grid-template-columns:1fr;
+    }
+
+    .search-box{
+        flex-direction:column;
+        gap:8px;
+        padding:8px;
+    }
+
+    .search-box button{
+        padding:14px;
+    }
+
+    .language-box{
+        padding:25px;
+    }
+
+    .language-box h2{
+        font-size:30px;
+    }
+
+    .emergency{
+        flex-direction:column;
+        align-items:flex-start;
+    }
+
+    .emergency-number{
+        width:100%;
+    }
+}
+</style>
 </head>
-<body class="bg-gray-50 font-sans">
 
-    <!-- Navbar -->
-    <nav class="bg-emerald-600 text-white shadow-md">
-        <div class="max-w-7xl mx-auto px-4 py-4 flex justify-between items-center">
-            <h1 class="text-xl font-bold flex items-center gap-2">💊 Farmacy AI Dashboard</h1>
-            <span class="text-sm bg-emerald-700 px-3 py-1 rounded-full">System Active</span>
+<body>
+
+<!-- =====================================================
+     BACKGROUND
+===================================================== -->
+
+<div class="background">
+    <div class="blob"></div>
+    <div class="blob"></div>
+    <div class="blob"></div>
+</div>
+
+<!-- =====================================================
+     NAVBAR
+===================================================== -->
+
+<nav class="navbar">
+
+    <a href="#" class="logo">
+        <div class="logo-icon">🌿</div>
+        FarmacyAI
+    </a>
+
+    <div class="nav-links">
+        <a href="#home" data-en="Home">Home</a>
+        <a href="#health" data-en="Health">Health</a>
+        <a href="#remedies" data-en="Remedies">Remedies</a>
+        <a href="#assistant" data-en="AI Assistant">AI Assistant</a>
+    </div>
+
+    <div class="nav-actions">
+
+        <select
+            class="lang-select"
+            id="languageSelect"
+            onchange="changeLanguage()">
+
+            <option value="en">English</option>
+            <option value="hi">हिन्दी</option>
+            <option value="mr">मराठी</option>
+            <option value="bn">বাংলা</option>
+            <option value="gu">ગુજરાતી</option>
+            <option value="ta">தமிழ்</option>
+            <option value="te">తెలుగు</option>
+            <option value="kn">ಕನ್ನಡ</option>
+
+        </select>
+
+        <button
+            class="icon-btn"
+            onclick="toggleTheme()"
+            title="Change theme">
+            🌙
+        </button>
+
+    </div>
+
+</nav>
+
+<!-- =====================================================
+     HERO
+===================================================== -->
+
+<main id="home">
+
+<section class="hero">
+
+    <div class="hero-content">
+
+        <div class="badge">
+            <span></span>
+            AI Health Companion
         </div>
-    </nav>
 
-    <!-- Main Container -->
-    <main class="max-w-7xl mx-auto px-4 py-8">
-        
-        <!-- Action / Add Section -->
-        <div class="bg-white p-6 rounded-xl shadow-sm mb-8 border border-gray-100">
-            <h2 class="text-lg font-semibold text-gray-800 mb-4">Add New Medicine</h2>
-            <form id="medForm" class="grid grid-cols-1 md:grid-cols-4 gap-4">
-                <input type="text" id="name" placeholder="Medicine Name" required class="border p-2 rounded focus:outline-none focus:ring-2 focus:ring-emerald-500">
-                <input type="text" id="category" placeholder="Category" required class="border p-2 rounded focus:outline-none focus:ring-2 focus:ring-emerald-500">
-                <input type="number" id="stock" placeholder="Stock Quantity" required class="border p-2 rounded focus:outline-none focus:ring-2 focus:ring-emerald-500">
-                <input type="number" step="0.01" id="price" placeholder="Price ($)" required class="border p-2 rounded focus:outline-none focus:ring-2 focus:ring-emerald-500">
-                <button type="submit" class="md:col-span-4 bg-emerald-600 text-white py-2 rounded font-medium hover:bg-emerald-700 transition">Add Medicine</button>
-            </form>
-        </div>
+        <h1>
+            Better health.
+            <br>
+            <span class="gradient-text">
+                Simple language.
+            </span>
+        </h1>
 
-        <!-- Inventory List Table -->
-        <div class="bg-white rounded-xl shadow-sm overflow-hidden border border-gray-100">
-            <div class="p-6 border-b border-gray-100">
-                <h2 class="text-lg font-semibold text-gray-800">Pharmacy Inventory</h2>
-            </div>
-            <div class="overflow-x-auto">
-                <table class="w-full text-left border-collapse">
-                    <thead>
-                        <tr class="bg-gray-100 text-gray-600 text-sm">
-                            <th class="p-4">ID</th>
-                            <th class="p-4">Medicine Name</th>
-                            <th class="p-4">Category</th>
-                            <th class="p-4">Stock</th>
-                            <th class="p-4">Price</th>
-                        </tr>
-                    </thead>
-                    <tbody id="medTableBody" class="divide-y divide-gray-100 text-sm text-gray-700">
-                        {% for med in medicines %}
-                        <tr>
-                            <td class="p-4">{{ med.id }}</td>
-                            <td class="p-4 font-medium text-gray-900">{{ med.name }}</td>
-                            <td class="p-4">{{ med.category }}</td>
-                            <td class="p-4">{{ med.stock }}</td>
-                            <td class="p-4">${{ "%.2f"|format(med.price) }}</td>
-                        </tr>
-                        {% endfor %}
-                    </tbody>
-                </table>
-            </div>
-        </div>
-    </main>
+        <p>
+FarmacyAI helps people understand common health
+problems, basic self-care and health information
+in a language they understand.
+</p>
 
-    <!-- JavaScript for Handling Form submission dynamically -->
-    <script>
-        document.getElementById('medForm').addEventListener('submit', async function(e) {
-            e.preventDefault();
-            const payload = {
-                name: document.getElementById('name').value,
-                category: document.getElementById('category').value,
-                stock: document.getElementById('stock').value,
-                price: document.getElementById('price').value
-            };
+<div class="hero-buttons">
+<a href="#assistant" class="btn btn-primary">
+🤖 Ask FarmacyAI
+</a>
 
-            const response = await fetch('/add_medicine', {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify(payload)
-            });
+<a href="#remedies" class="btn btn-secondary">
+🌿 Explore Remedies
+</a>
+</div>
 
-            const result = await response.json();
-            if(result.success) {
-                location.reload();
-            }
-        });
-    </script>
+</div>
+
+<div class="ai-visual">
+
+<div class="ai-card">
+
+<div class="ai-top">
+<div class="ai-avatar">🤖</div>
+<div class="online">● AI Assistant Online</div>
+</div>
+
+<div class="chat-bubble ai-message">
+👋 Namaste! How can I help you today?
+</div>
+
+<div class="chat-bubble user-message">
+I have a mild headache.
+</div>
+
+<div class="chat-bubble ai-message">
+💡 Rest, drink enough water and avoid
+excessive screen brightness. If symptoms
+are severe or persistent, seek medical care.
+</div>
+
+<div class="ai-input">
+<input
+id="heroQuestion"
+placeholder="Ask a health question...">
+
+<button
+class="send-btn"
+onclick="askHeroAI()">
+➤
+</button>
+</div>
+
+</div>
+</div>
+
+</section>
+
+</main>
+
+
+
+<section id="health">
+
+<div class="section-head reveal">
+<div class="mini">EXPLORE</div>
+
+<h2>Find health information</h2>
+
+<p>
+Search common health topics and learn simple
+self-care information.
+</p>
+</div>
+
+<div class="search-box reveal">
+
+<input
+id="searchInput"
+type="text"
+placeholder="Search headache, cold, cough...">
+
+<button onclick="searchHealth()">
+🔍 Search
+</button>
+
+</div>
+
+<br><br>
+
+<div class="categories reveal">
+
+<div class="category"
+onclick="showTopic('Fever')">
+<div class="category-icon">🌡️</div>
+<h3>Fever</h3>
+<p>General information and warning signs.</p>
+</div>
+
+<div class="category"
+onclick="showTopic('Cold & Cough')">
+<div class="category-icon">🤧</div>
+<h3>Cold & Cough</h3>
+<p>Basic comfort and self-care guidance.</p>
+</div>
+
+<div class="category"
+onclick="showTopic('Headache')">
+<div class="category-icon">🤕</div>
+<h3>Headache</h3>
+<p>Common causes and precautions.</p>
+</div>
+
+<div class="category"
+onclick="showTopic('Digestion')">
+<div class="category-icon">🍎</div>
+<h3>Digestion</h3>
+<p>Healthy eating and hydration tips.</p>
+</div>
+
+</div>
+</section>
+
+
+
+<section id="remedies">
+
+<div class="section-head reveal">
+<div class="mini">SELF CARE</div>
+
+<h2>Simple Remedies & Wellness Tips</h2>
+
+<p>
+General home-care information for common,
+mild situations.
+</p>
+</div>
+
+<div class="remedy-grid">
+
+<div class="remedy reveal">
+<div class="remedy-top">
+<div class="remedy-icon">💧</div>
+<div class="safe">BASIC CARE</div>
+</div>
+
+<h3>Stay Hydrated</h3>
+
+<p>
+Drinking enough fluids helps maintain hydration,
+especially during hot weather or minor illness.
+</p>
+
+<button onclick="showInfo(
+'Drink enough fluids. If you cannot keep fluids down or have serious dehydration symptoms, seek medical care.'
+)">
+Learn more →
+</button>
+</div>
+
+
+<div class="remedy reveal">
+<div class="remedy-top">
+<div class="remedy-icon">😴</div>
+<div class="safe">WELLNESS</div>
+</div>
+
+<h3>Take Enough Rest</h3>
+
+<p>
+Adequate sleep and rest can support normal
+recovery and overall wellbeing.
+</p>
+
+<button onclick="showInfo(
+'Rest can support recovery. Persistent or serious symptoms should be checked by a healthcare professional.'
+)">
+Learn more →
+</button>
+</div>
+
+
+<div class="remedy reveal">
+<div class="remedy-top">
+<div class="remedy-icon">🍲</div>
+<div class="safe">WELLNESS</div>
+</div>
+
+<h3>Balanced Food</h3>
+
+<p>
+A varied diet containing vegetables, fruits,
+grains and protein supports general health.
+</p>
+
+<button onclick="showInfo(
+'Choose a varied and balanced diet. People with special dietary needs should follow professional advice.'
+)">
+Learn more →
+</button>
+</div>
+
+
+<div class="remedy reveal">
+<div class="remedy-top">
+<div class="remedy-icon">🧼</div>
+<div class="safe">PREVENTION</div>
+</div>
+
+<h3>Hand Hygiene</h3>
+
+<p>
+Regular hand washing with soap and clean water
+helps reduce the spread of infections.
+</p>
+
+<button onclick="showInfo(
+'Wash your hands regularly, especially before eating and after using the toilet.'
+)">
+Learn more →
+</button>
+</div>
+
+
+<div class="remedy reveal">
+<div class="remedy-top">
+<div class="remedy-icon">🧘</div>
+<div class="safe">WELLNESS</div>
+</div>
+
+<h3>Relax & Breathe</h3>
+
+<p>
+Slow breathing and quiet rest may help promote
+relaxation during everyday stress.
+</p>
+
+<button onclick="showInfo(
+'Try slow comfortable breathing and a quiet environment.'
+)">
+Learn more →
+</button>
+</div>
+
+
+<div class="remedy reveal">
+<div class="remedy-top">
+<div class="remedy-icon">🚶</div>
+<div class="safe">FITNESS</div>
+</div>
+
+<h3>Daily Movement</h3>
+
+<p>
+Regular age-appropriate physical activity can
+support physical and mental health.
+</p>
+
+<button onclick="showInfo(
+'Choose comfortable activity appropriate for your ability.'
+)">
+Learn more →
+</button>
+</div>
+
+</div>
+</section>
+
+
+
+<section>
+
+<div class="language-box reveal">
+
+<div>
+<div class="mini">🌍 INCLUSIVE HEALTHCARE</div>
+
+<h2>Health information in your language.</h2>
+
+<p>
+FarmacyAI makes health information easier to
+understand for people from different language
+backgrounds.
+</p>
+</div>
+
+<div class="languages">
+
+<div class="language" onclick="selectLanguage('en')">
+🇬🇧 English
+</div>
+
+<div class="language" onclick="selectLanguage('hi')">
+🇮🇳 हिन्दी
+</div>
+
+<div class="language" onclick="selectLanguage('mr')">
+🇮🇳 मराठी
+</div>
+
+<div class="language" onclick="selectLanguage('bn')">
+🇮🇳 বাংলা
+</div>
+
+<div class="language" onclick="selectLanguage('gu')">
+🇮🇳 ગુજરાતી
+</div>
+
+<div class="language" onclick="selectLanguage('ta')">
+🇮🇳 தமிழ்
+</div>
+
+<div class="language" onclick="selectLanguage('te')">
+🇮🇳 తెలుగు
+</div>
+
+<div class="language" onclick="selectLanguage('kn')">
+🇮🇳 ಕನ್ನಡ
+</div>
+
+</div>
+</div>
+
+</section>
+
+
+<section id="assistant">
+
+<div class="section-head reveal">
+
+<div class="mini">FARMACYAI</div>
+
+<h2>Ask Your Health Assistant</h2>
+
+<p>
+Choose a question or type your own.
+</p>
+
+</div>
+
+
+<div class="assistant reveal">
+
+<div class="assistant-header">
+
+<div class="assistant-avatar">
+🤖
+</div>
+
+<div>
+<h3>FarmacyAI Assistant</h3>
+<p>Simple health information</p>
+</div>
+
+</div>
+
+
+<div class="question-grid">
+
+<button class="question"
+onclick="askAI('What can I do for a mild headache?')">
+🤕 What can I do for a mild headache?
+</button>
+
+<button class="question"
+onclick="askAI('What should I do for a common cold?')">
+🤧 What can help with a common cold?
+</button>
+
+<button class="question"
+onclick="askAI('How can I stay hydrated?')">
+💧 How can I stay hydrated?
+</button>
+
+<button class="question"
+onclick="askAI('When should I see a doctor?')">
+🏥 When should I see a doctor?
+</button>
+
+</div>
+
+
+<div id="response" class="response"></div>
+
+
+<div class="ai-input">
+
+<input
+id="assistantInput"
+placeholder="Type your health question...">
+
+<button
+class="send-btn"
+onclick="sendAssistantQuestion()">
+➤
+</button>
+
+<button
+class="send-btn"
+onclick="startVoice()">
+🎙️
+</button>
+
+</div>
+
+</div>
+
+</section>
+
+
+<section>
+
+<div class="emergency reveal">
+
+<div>
+
+<h2>🚨 Medical Emergency?</h2>
+
+<p>
+Do not rely on AI during an emergency.
+Contact your local emergency service or
+visit the nearest emergency department.
+</p>
+
+</div>
+
+<a
+href="tel:112"
+class="emergency-number">
+📞 Emergency 112
+</a>
+
+</div>
+
+</section>
+
+
+<footer>
+
+<div class="footer-logo">
+🌿 FarmacyAI
+</div>
+
+<p>
+Smart health information for everyone.
+</p>
+
+<div class="disclaimer">
+
+⚠️ <strong>Important:</strong>
+FarmacyAI provides general educational information
+and is not a substitute for a qualified doctor,
+pharmacist or healthcare professional.
+
+</div>
+
+<p style="margin-top:25px;font-size:12px">
+© 2026 FarmacyAI. Built for accessible digital healthcare.
+</p>
+
+</footer>
+
+
+<div id="toast" class="toast">
+Information loaded.
+</div>
+
+
+
+
+<script>
+
+function toggleTheme(){
+
+document.body.classList.toggle("dark");
+
+localStorage.setItem(
+"farmacyTheme",
+document.body.classList.contains("dark")
+);
+
+}
+
+if(localStorage.getItem("farmacyTheme")==="true"){
+document.body.classList.add("dark");
+}
+
+
+function showToast(message){
+
+const toast=document.getElementById("toast");
+
+toast.textContent=message;
+toast.classList.add("show");
+
+setTimeout(function(){
+toast.classList.remove("show");
+},3000);
+
+}
+
+
+function showInfo(message){
+showToast(message);
+}
+
+
+function searchHealth(){
+
+const input=document.getElementById("searchInput");
+const value=input.value.trim();
+
+if(!value){
+showToast("Please enter a health topic.");
+return;
+}
+
+showTopic(value);
+
+}
+
+
+function showTopic(topic){
+
+const q=topic.toLowerCase();
+
+if(q.includes("fever")){
+
+showInfo(
+"Fever can have many causes. Rest and drink enough fluids. Seek medical advice for very high or persistent fever or serious symptoms."
+);
+
+}
+
+else if(q.includes("cold") || q.includes("cough")){
+
+showInfo(
+"For a mild cold, rest and fluids may help. Seek medical care if breathing becomes difficult or symptoms become severe."
+);
+
+}
+
+else if(q.includes("headache")){
+
+showInfo(
+"For a mild headache, rest, hydration and reducing screen brightness may help. A sudden severe headache requires urgent medical evaluation."
+);
+
+}
+
+else if(q.includes("digestion")){
+
+showInfo(
+"For mild digestive discomfort, stay hydrated and choose simple foods. Severe or persistent pain needs medical evaluation."
+);
+
+}
+
+else{
+
+showInfo(
+"FarmacyAI does not have detailed information for this topic yet. Please consult a qualified healthcare professional."
+);
+
+}
+
+}
+
+
+function askHeroAI(){
+
+const input=document.getElementById("heroQuestion");
+const value=input.value.trim();
+
+if(!value){
+showToast("Please ask a question.");
+return;
+}
+
+document.getElementById("assistantInput").value=value;
+
+document.getElementById("assistant")
+.scrollIntoView({behavior:"smooth"});
+
+setTimeout(function(){
+askAI(value);
+},500);
+
+}
+
+
+function askAI(question){
+
+const response=document.getElementById("response");
+const q=question.toLowerCase();
+
+let answer="";
+
+
+if(q.includes("headache")){
+
+answer=
+"💡 For a mild headache, try resting in a quiet place, drinking enough fluids and taking a break from bright screens. A sudden severe headache or serious symptoms require urgent medical care.";
+
+}
+
+else if(q.includes("cold") || q.includes("cough")){
+
+answer=
+"🤧 For a mild cold, rest and fluids may help. Seek professional care if you have breathing difficulty, severe symptoms or symptoms that do not improve.";
+
+}
+
+else if(q.includes("water") || q.includes("hydration")){
+
+answer=
+"💧 Drink fluids regularly and pay attention to thirst. If you cannot keep fluids down or have serious dehydration symptoms, seek medical care.";
+
+}
+
+else if(q.includes("doctor") || q.includes("hospital")){
+
+answer=
+"🏥 Seek medical attention for severe or rapidly worsening symptoms, difficulty breathing, chest pain, fainting, confusion, severe bleeding or seizures.";
+
+}
+
+else if(q.includes("fever")){
+
+answer=
+"🌡️ Fever can have many causes. Rest and fluids may support comfort. Persistent or very high fever or serious symptoms should be assessed by a healthcare professional.";
+
+}
+
+else{
+
+answer=
+"🤖 I can provide general information about headaches, colds, coughs, hydration, fever and wellness. For diagnosis or treatment, please speak with a qualified healthcare professional.";
+
+}
+
+
+response.innerHTML=
+"<strong>FarmacyAI:</strong><br><br>"+answer;
+
+response.style.display="block";
+
+}
+
+
+function sendAssistantQuestion(){
+
+const input=document.getElementById("assistantInput");
+
+const value=input.value.trim();
+
+if(!value){
+showToast("Type a question first.");
+return;
+}
+
+askAI(value);
+
+}
+
+
+function startVoice(){
+
+const SpeechRecognition=
+window.SpeechRecognition ||
+window.webkitSpeechRecognition;
+
+if(!SpeechRecognition){
+
+showToast("Voice input is not supported.");
+return;
+
+}
+
+const recognition=new SpeechRecognition();
+
+recognition.lang="en-IN";
+
+recognition.start();
+
+showToast("🎙️ Listening...");
+
+recognition.onresult=function(event){
+
+const text=
+event.results[0][0].transcript;
+
+document.getElementById(
+"assistantInput"
+).value=text;
+
+askAI(text);
+
+};
+
+}
+
+
+function selectLanguage(lang){
+
+document.getElementById(
+"languageSelect"
+).value=lang;
+
+showToast(
+"Language selected successfully."
+);
+
+}
+
+
+function changeLanguage(){
+
+const lang=
+document.getElementById(
+"languageSelect"
+).value;
+
+showToast(
+"Language changed to "+lang
+);
+
+}
+
+
+const observer=
+new IntersectionObserver(
+function(entries){
+
+entries.forEach(function(entry){
+
+if(entry.isIntersecting){
+entry.target.classList.add("active");
+}
+
+});
+
+},
+{threshold:.15}
+);
+
+
+document
+.querySelectorAll(".reveal")
+.forEach(function(el){
+
+observer.observe(el);
+
+});
+
+
+document
+.getElementById("assistantInput")
+.addEventListener(
+"keydown",
+function(e){
+
+if(e.key==="Enter"){
+sendAssistantQuestion();
+}
+
+}
+);
+
+
+document
+.getElementById("searchInput")
+.addEventListener(
+"keydown",
+function(e){
+
+if(e.key==="Enter"){
+searchHealth();
+}
+
+}
+);
+
+</script>
+
 </body>
-  </html>
-                              
+</html>
+
+
+
+
+
+</script>
+
+</body>
+</html>
+
+
