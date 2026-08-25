@@ -13,6 +13,10 @@ medicines = [
 def home():
     return render_template('index.html', medicines=medicines)
 
+@app.route('/remedies')
+def remedies():
+    return render_template('remedy.html')
+
 @app.route('/add_medicine', methods=['POST'])
 def add_medicine():
     data = request.json
